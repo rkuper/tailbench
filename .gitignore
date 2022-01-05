@@ -46,3 +46,57 @@ masstree/config.status
 masstree/configure
 masstree/stamp-h
 
+# Shore
+shore/shore-mt/Makefile
+shore/shore-mt/Makefile.in
+shore/shore-mt/aclocal.m4
+shore/shore-mt/autom4te.cache/
+shore/shore-mt/config.log
+shore/shore-mt/config.status
+shore/shore-mt/config/Makefile
+shore/shore-mt/config/Makefile.in
+shore/shore-mt/config/compile
+shore/shore-mt/config/shore-config.h
+shore/shore-mt/config/test-driver
+shore/shore-mt/configure
+shore/shore-mt/src/Makefile
+shore/shore-mt/src/Makefile.in
+shore/shore-mt/src/atomic_ops/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/src/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/src/uts/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/src/uts/intel/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/src/uts/intel/ia32/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/src/uts/intel/ia32/sys/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/src/uts/intel/sys/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/src/uts/sparc/Makefile
+shore/shore-mt/src/atomic_ops/asm_linkage/usr/src/uts/sparc/sys/Makefile
+shore/shore-mt/src/atomic_ops/atomic_ops/Makefile
+shore/shore-mt/src/atomic_ops/atomic_ops/amd64/Makefile
+shore/shore-mt/src/atomic_ops/atomic_ops/i386/Makefile
+shore/shore-mt/src/atomic_ops/atomic_ops/sparc/Makefile
+shore/shore-mt/src/atomic_ops/atomic_ops/sparcv9/Makefile
+shore/shore-mt/src/common/Makefile
+shore/shore-mt/src/common/tests/Makefile
+shore/shore-mt/src/fc/Makefile
+shore/shore-mt/src/fc/tests/Makefile
+shore/shore-mt/src/sm/Makefile
+shore/shore-mt/src/sm/smsh/Makefile
+shore/shore-mt/src/sm/smsh/lib/Makefile
+shore/shore-mt/src/sm/smsh/scripts/Makefile
+shore/shore-mt/src/sm/tests/Makefile
+shore/shore-mt/src/sthread/Makefile
+shore/shore-mt/src/sthread/tests/Makefile
+shore/shore-mt/tmpcfg.txt
+shore/shore-mt/tools/Makefile
+
+# Silo
+silo/masstree/config.log
+silo/masstree/GNUmakefile
+silo/masstree/config.h
+silo/masstree/config.status
+
+# SPECJBB
+specjbb/build/
+
