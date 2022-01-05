@@ -69,15 +69,15 @@ weightRandomInit(SA &sa, int inputsize, int hiddensize, int nsamples, double eps
     sa.cost = 0.0;
 }
 
-void 
+void
 weightRandomInit(SMR &smr, int nclasses, int nfeatures, double epsilon){
 
     smr.Weight = cv::Mat::ones(nclasses, nfeatures, CV_64FC1);
-    double *pData; 
+    double *pData;
     for(int i = 0; i<smr.Weight.rows; i++){
         pData = smr.Weight.ptr<double>(i);
         for(int j=0; j<smr.Weight.cols; j++){
-            pData[j] = cv::randu<double>();        
+            pData[j] = cv::randu<double>();
         }
     }
     smr.Weight = smr.Weight * (2 * epsilon) - epsilon;
@@ -109,7 +109,8 @@ sparseAutoencoderCost(SA &sa, cv::Mat &data, double lambda, double sparsityParam
     double err = sum(errtp)[0] / nsamples;
     // now calculate pj which is the average activation of hidden units
     cv::Mat pj;
-    reduce(acti.aHidden, pj, 1, CV_REDUCE_SUM);
+    /* reduce(acti.aHidden, pj, 1, CV_REDUCE_SUM); */
+    reduce(acti.aHidden, pj, 1, 0);
     pj /= nsamples;
     // the second part is weight decay part
     double err2 = sum(sa.W1)[0] + sum(sa.W2)[0];
@@ -136,13 +137,15 @@ sparseAutoencoderCost(SA &sa, cv::Mat &data, double lambda, double sparsityParam
     delta2 = delta2.mul(dsigmoid(acti.aHidden));
     cv::Mat nablaW1 = delta2 * acti.aInput.t();
     cv::Mat nablaW2 = delta3 * acti.aHidden.t();
-    cv::Mat nablab1, nablab2; 
+    cv::Mat nablab1, nablab2;
     delta3.copyTo(nablab2);
     delta2.copyTo(nablab1);
     sa.W1grad = nablaW1 / nsamples + lambda * sa.W1;
     sa.W2grad = nablaW2 / nsamples + lambda * sa.W2;
-    reduce(nablab1, sa.b1grad, 1, CV_REDUCE_SUM);
-    reduce(nablab2, sa.b2grad, 1, CV_REDUCE_SUM);
+    /* reduce(nablab1, sa.b1grad, 1, CV_REDUCE_SUM); */
+    reduce(nablab1, sa.b1grad, 1, 0);
+    /* reduce(nablab2, sa.b2grad, 1, CV_REDUCE_SUM); */
+    reduce(nablab2, sa.b2grad, 1, 0);
     sa.b1grad /= nsamples;
     sa.b2grad /= nsamples;
 }
@@ -176,7 +179,7 @@ trainSparseAutoencoder(SA &sa, cv::Mat &data, int hiddenSize, double lambda, dou
     }
 }
 
-void 
+void
 softmaxRegressionCost(cv::Mat &x, cv::Mat &y, SMR &smr, double lambda){
 
     int nsamples = x.cols;
@@ -186,14 +189,16 @@ softmaxRegressionCost(cv::Mat &x, cv::Mat &y, SMR &smr, double lambda){
     cv::Mat M = theta * x;
     cv::Mat temp, temp2;
     temp = cv::Mat::ones(1, M.cols, CV_64FC1);
-    reduce(M, temp, 0, CV_REDUCE_SUM);
+    /* reduce(M, temp, 0, CV_REDUCE_SUM); */
+    reduce(M, temp, 0, 0);
     temp2 = repeat(temp, nclasses, 1);
     M -= temp2;
     exp(M, M);
     temp = cv::Mat::ones(1, M.cols, CV_64FC1);
-    reduce(M, temp, 0, CV_REDUCE_SUM);
+    /* reduce(M, temp, 0, CV_REDUCE_SUM); */
+    reduce(M, temp, 0, 0);
     temp2 = repeat(temp, nclasses, 1);
-    divide(M, temp2, M); 
+    divide(M, temp2, M);
     cv::Mat groundTruth = cv::Mat::zeros(nclasses, nsamples, CV_64FC1);
     for(int i=0; i<nsamples; i++){
         groundTruth.at<double>(y.at<double>(0, i), i) = 1.0;
@@ -206,13 +211,13 @@ softmaxRegressionCost(cv::Mat &x, cv::Mat &y, SMR &smr, double lambda){
     pow(theta, 2.0, theta2);
     smr.cost += sum(theta2)[0] * lambda / 2;
     //calculate gradient
-    temp = groundTruth - M;   
+    temp = groundTruth - M;
     temp = temp * x.t();
     smr.Wgrad = - temp / nsamples;
     smr.Wgrad += lambda * theta;
 }
 
-void 
+void
 trainSoftmaxRegression(SMR& smr, cv::Mat &x, cv::Mat &y, double lambda, double lrate, int MaxIter){
     int nfeatures = x.rows;
     int nsamples = x.cols;
@@ -253,11 +258,13 @@ fineTuneNetworkCost(cv::Mat &x, cv::Mat &y, std::vector<SA> &hLayers, SMR &smr, 
     }
     cv::Mat M = smr.Weight * acti[acti.size() - 1];
     cv::Mat tmp;
-    reduce(M, tmp, 0, CV_REDUCE_MAX);
+    /* reduce(M, tmp, 0, CV_REDUCE_MAX); */
+    reduce(M, tmp, 0, 2);
     M = M + repeat(tmp, M.rows, 1);
     cv::Mat p;
     exp(M, p);
-    reduce(p, tmp, 0, CV_REDUCE_SUM);
+    /* reduce(p, tmp, 0, CV_REDUCE_SUM); */
+    reduce(p, tmp, 0, 0);
     divide(p, repeat(tmp, p.rows, 1), p);
 
     cv::Mat groundTruth = cv::Mat::zeros(nclasses, nsamples, CV_64FC1);
@@ -285,7 +292,8 @@ fineTuneNetworkCost(cv::Mat &x, cv::Mat &y, std::vector<SA> &hLayers, SMR &smr, 
     for(int i=SparseAutoencoderLayers - 1; i >=0; i--){
         hLayers[i].W1grad = delta[i + 1] * acti[i].t();
         hLayers[i].W1grad /= nsamples;
-        reduce(delta[i + 1], tmp, 1, CV_REDUCE_SUM);
+        /* reduce(delta[i + 1], tmp, 1, CV_REDUCE_SUM); */
+        reduce(delta[i + 1], tmp, 1, 0);
         hLayers[i].b1grad = tmp / nsamples;
     }
     acti.clear();
@@ -392,9 +400,9 @@ int main(int argc, char* argv[]) {
     batch = trainX.cols / 100;
     // Finished reading data
 
-    // pre-processing data. 
+    // pre-processing data.
     // For some dataset, you may like to pre-processing the data,
-    // however, in MNIST dataset, it actually already pre-processed. 
+    // however, in MNIST dataset, it actually already pre-processed.
     // Scalar mean, stddev;
     // meanStdDev(trainX, mean, stddev);
     // cv::Mat normX = trainX - mean[0];

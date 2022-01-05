@@ -1,6 +1,6 @@
 // Original Author: Eric Yuan
 // Blog: http://eric-yuan.me
-// 
+//
 // Substantially modified by Harshad Kasture (harshad@csail.mit.edu)
 //
 // A deep net hand writing classifier.  Using sparse autoencoder and softmax
@@ -30,7 +30,7 @@ using namespace std;
 #define ATD at<double>
 #define elif else if
 
-Mat 
+Mat
 resultProdict(const Mat &x, const vector<SA> &hLayers, const SMR &smr){
 
     vector<Mat> acti;
@@ -41,11 +41,13 @@ resultProdict(const Mat &x, const vector<SA> &hLayers, const SMR &smr){
     }
     Mat M = smr.Weight * acti[acti.size() - 1];
     Mat tmp;
-    reduce(M, tmp, 0, CV_REDUCE_MAX);
+    /* reduce(M, tmp, 0, CV_REDUCE_MAX); */
+    reduce(M, tmp, 0, 2);
     M = M + repeat(tmp, M.rows, 1);
     Mat p;
     exp(M, p);
-    reduce(p, tmp, 0, CV_REDUCE_SUM);
+    /* reduce(p, tmp, 0, CV_REDUCE_SUM); */
+    reduce(p, tmp, 0, 0);
     divide(p, repeat(tmp, p.rows, 1), p);
     log(p, tmp);
     //cout<<tmp.t()<<endl;
@@ -98,7 +100,7 @@ void printHelp(char* argv[]) {
     cerr << "Usage: " << argv[0] << " [-f model_file] [-n max_reqs]" \
         << " [-r threads] [-h]" << endl << endl;
     cerr << "-f : Name of model file to load " << "(default: model.xml)" \
-        << endl; 
+        << endl;
     cerr << "-n : Maximum number of requests "\
         << "(default: 6000; size of the full MNIST test dataset)" << endl;
     cerr << "-r : Number of worker threads" << endl;
@@ -151,7 +153,7 @@ class Worker {
 
     public:
         Worker(int tid, const SMR& _smr, const vector<SA>& _hiddenLayers)
-            : tid(tid) 
+            : tid(tid)
             , nReqs(0)
             , smr(_smr)
             , hiddenLayers(_hiddenLayers)
@@ -175,7 +177,7 @@ atomic_llong Worker::nReqsTotal(0);
 long Worker::maxReqs(0);
 atomic_llong Worker::correct(0);
 
-int 
+int
 main(int argc, char** argv)
 {
     string modelFile = "model.xml";

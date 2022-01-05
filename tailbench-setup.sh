@@ -1,1 +1,5 @@
-sudo apt install -y openjdk-8-jdk zlib1g-dev g++ libopencv-dev libboost-dev swift g++ git subversion automake libtool libicu-dev libboost-all-dev libbz2-dev liblzma-dev python-dev python2.7-dev graphviz imagemagick make cmake libgoogle-perftools-dev autoconf doxygen ant libxapian-dev uuid-dev zlib1g-dev autoconf libjemalloc-dev libnuma-dev libdb-dev libdb++-dev libaio-dev libssl-dev libcrypto-dev swig bison libreadline-dev libgtop2-dev libncurses-dev
+# General
+sudo apt install g++ subversion automake libtool python-dev python2.7-dev make cmake doxygen openjdk-8-jdk
+
+# Benchmarks
+sudo apt install -y zlib1g-dev g++ libopencv-dev libboost-dev swift libicu-dev libboost-all-dev libbz2-dev liblzma-dev graphviz imagemagick libgoogle-perftools-dev ant libxapian-dev uuid-dev libjemalloc-dev libnuma-dev libdb-dev libdb++-dev libaio-dev libssl-dev libcrypto-dev swig bison libreadline-dev libgtop2-dev libncurses-dev
