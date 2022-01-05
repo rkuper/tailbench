@@ -36,11 +36,11 @@ decoder_integrated : client.o $(TBENCH_INTEGRATED_OBJS) decoder.o
 
 decoder_server_networked : $(TBENCH_NETWORKED_SERVER_OBJS) decoder.o
 	export PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) && \
-	$(CXX) $^ -o $@ `pkg-config --libs pocketsphinx sphinxbase` $(LDFLAGS) 
+	$(CXX) $^ -o $@ `pkg-config --libs pocketsphinx sphinxbase` $(LDFLAGS)
 
 decoder_client_networked : client.o $(TBENCH_NETWORKED_CLIENT_OBJS)
 	export PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) && \
-	$(CXX) $^ -o $@ `pkg-config --libs pocketsphinx sphinxbase`$(LDFLAGS) 
+	$(CXX) $^ -o $@ `pkg-config --libs pocketsphinx sphinxbase` $(LDFLAGS)
 
 clean:
 	rm *.o

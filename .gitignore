@@ -100,3 +100,7 @@ silo/masstree/config.status
 # SPECJBB
 specjbb/build/
 
+# Sphinx
+pocketsphinx-5prealpha/
+sphinx-install/
+sphinxbase-5prealpha/
