@@ -35,3 +35,14 @@
 harness/tbench.jar
 harness/tbench/tbench.class
 harness/tbench_tbench.h
+
+# Masstree
+masstree/.deps/
+masstree/GNUmakefile
+masstree/autom4te.cache/
+masstree/config.h
+masstree/config.log
+masstree/config.status
+masstree/configure
+masstree/stamp-h
+
