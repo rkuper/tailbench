@@ -35,7 +35,22 @@ sed -i -e "s#@NTHREADS#$THREADS#g" shore.conf
 
 # Run app
 TBENCH_QPS=${QPS} TBENCH_MAXREQS=${MAXREQS} TBENCH_WARMUPREQS=${WARMUPREQS} \
-    TBENCH_MINSLEEPNS=10000 chrt -r 99 ${BIN} -i cmdfile
+    TBENCH_MINSLEEPNS=10000 chrt -r 99 ${BIN} -i cmdfile &
+
+echo $! > integrated.pid
+
+# performance monitoring
+../utilities/pidstat.sh $(cat integrated.pid) &
+echo $! > pidstat.pid
+../utilities/ps.sh $(cat integrated.pid) &
+echo $! > ps.pid
+../utilities/vmstat.sh &
+echo $! > vmstat.pid
+
+wait $(cat integrated.pid)
+rm integrated.pid pidstat.pid ps.pid vmstat.pid
+kill $(jobs -p)
+pkill -9 -x vmstat
 
 # Cleanup
 rm -f log scratch cmdfile db-tpcc-1 diskrw shore.conf info

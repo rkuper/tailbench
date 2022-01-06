@@ -16,4 +16,19 @@ sed -i -e "s#@DATA_ROOT#$DATA_ROOT#g" moses.ini
 TBENCH_QPS=${QPS} TBENCH_MAXREQS=${MAXREQS} TBENCH_WARMUPREQS=${WARMUPREQS} \
     TBENCH_MINSLEEPNS=10000 chrt -r 99 ${BIN} -config ./moses.ini \
     -input-file ${DATA_ROOT}/moses/testTerms \
-    -threads ${THREADS} -num-tasks 100000 -verbose 0
+    -threads ${THREADS} -num-tasks 100000 -verbose 0 &
+
+echo $! > integrated.pid
+
+# performance monitoring
+../utilities/pidstat.sh $(cat integrated.pid) &
+echo $! > pidstat.pid
+../utilities/ps.sh $(cat integrated.pid) &
+echo $! > ps.pid
+../utilities/vmstat.sh &
+echo $! > vmstat.pid
+
+wait $(cat integrated.pid)
+rm integrated.pid pidstat.pid ps.pid vmstat.pid
+kill $(jobs -p)
+pkill -9 -x vmstat

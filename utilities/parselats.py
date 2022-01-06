@@ -1,9 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys
 import os
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 from scipy import stats
+from scipy import mean
 
 class Lat(object):
     def __init__(self, fileName):
@@ -21,7 +24,32 @@ class Lat(object):
     def parseSojournTimes(self):
         return self.reqTimes[:, 2]
 
+def draw_pdf(values, nbins):
+    clear()
+    return pd.Series(values).hist(bins=nbins)
+
+def savefig(pathname):
+    plt.savefig(pathname)
+
+def clear():
+    plt.cla()
+    plt.clf()
+    plt.close()
+
 if __name__ == '__main__':
+    """
+    data = np.loadtxt('Filename.txt')
+    # Choose how many bins you want here
+    num_bins = 20
+    # Use the histogram function to bin the data
+    counts, bin_edges = np.histogram(data, bins=num_bins, normed=True)
+    # Now find the cdf
+    cdf = np.cumsum(counts)
+    # And finally plot the cdf
+    plt.plot(bin_edges[1:], cdf)
+    plt.show()
+    """
+
     def getLatPct(latsFile):
         assert os.path.exists(latsFile)
 
@@ -41,14 +69,30 @@ if __name__ == '__main__':
         f.close()
 
         percentiles = [50, 75, 90, 95, 99, 99.5]
-        percentile_values = []
-        maxLat = max(sjrnTimes)
-        print("Max latency: %.3f ms" % (maxLat))
+
+
+        print("Svc\n===")
         for percentile in percentiles:
-            percentile_value = stats.scoreatpercentile(sjrnTimes, percentile)
-            percentile_values.append(percentile_value)
+            percentile_value = stats.scoreatpercentile(svcTimes, percentile)
             print(str(percentile) + "th percentile latency %.3f ms" \
                     % (percentile_value))
+        print("Mean latency: %.3f ms" % (np.mean(svcTimes)))
+        print("Max latency: %.3f ms\n" % (max(svcTimes)))
+
+        print("Sojourn\n=======")
+        for percentile in percentiles:
+            percentile_value = stats.scoreatpercentile(sjrnTimes, percentile)
+            print(str(percentile) + "th percentile latency %.3f ms" \
+                    % (percentile_value))
+        print("Mean latency: %.3f ms" % (np.mean(sjrnTimes)))
+        print("Max latency: %.3f ms" % (max(sjrnTimes)))
+
+        """
+        draw_pdf(svcTimes, 1000)
+        savefig("svcTimes.png")
+        draw_pdf(sjrnTimes, 1000)
+        savefig("sjrnTimes.png")
+        """
 
     latsFile = sys.argv[1]
     getLatPct(latsFile)
