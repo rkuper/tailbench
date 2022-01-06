@@ -30,6 +30,14 @@
 *.exe
 *.out
 *.app
+*_integrated
+*_client_networked
+*_networked_client
+*_networked_server
+
+# Results
+lats.bin
+lats.txt
 
 # Data and Scratch
 data/*
@@ -108,4 +116,42 @@ sphinx-install/
 sphinxbase-5prealpha/
 
 # Moses
-moses/
+moses/OnDiskPt/bin/
+moses/biconcor/bin/
+moses/bin/
+moses/errors
+moses/jam-files/bjam
+moses/jam-files/engine/bin.linuxx86_64/
+moses/jam-files/engine/bootstrap/
+moses/lats.bin
+moses/lats.txt
+moses/lm/bin/
+moses/lm/builder/bin/
+moses/lm/filter/bin/
+moses/mert/bin/
+moses/mert/evaluator
+moses/mert/extractor
+moses/mert/kbmira
+moses/mert/mert
+moses/mert/pro
+moses/mert/sentence-bleu
+moses/mira/bin/
+moses/misc/bin/
+moses/moses-chart-cmd/bin/
+moses/moses-cmd/bin/
+moses/moses.ini
+moses/moses/LM/bin/
+moses/moses/TranslationModel/CompactPT/bin/
+moses/moses/bin/
+moses/phrase-extract/bin/
+moses/phrase-extract/extract-ghkm/bin/
+moses/phrase-extract/lexical-reordering/bin/
+moses/phrase-extract/pcfg-extract/bin/
+moses/phrase-extract/pcfg-score/bin/
+moses/previous.sh
+moses/symal/bin/
+moses/util/bin/
+
+# Xapian
+xapian/genTerms
+xapian/xapian-core-1.2.13/
