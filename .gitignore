@@ -40,7 +40,6 @@ harness/tbench_tbench.h
 masstree/.deps/
 masstree/GNUmakefile
 masstree/autom4te.cache/
-masstree/config.h
 masstree/config.log
 masstree/config.status
 masstree/configure
@@ -94,7 +93,6 @@ shore/shore-mt/tools/Makefile
 # Silo
 silo/masstree/config.log
 silo/masstree/GNUmakefile
-silo/masstree/config.h
 silo/masstree/config.status
 
 # SPECJBB
@@ -104,3 +102,6 @@ specjbb/build/
 pocketsphinx-5prealpha/
 sphinx-install/
 sphinxbase-5prealpha/
+
+# Moses
+moses/
