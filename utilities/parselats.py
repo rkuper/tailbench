@@ -9,7 +9,7 @@ class Lat(object):
     def __init__(self, fileName):
         f = open(fileName, 'rb')
         a = np.fromfile(f, dtype=np.uint64)
-        self.reqTimes = a.reshape((a.shape[0]/3, 3))
+        self.reqTimes = a.reshape((int(a.shape[0]/3), 3))
         f.close()
 
     def parseQueueTimes(self):
@@ -39,11 +39,16 @@ if __name__ == '__main__':
             f.write("%12s | %12s | %12s\n" \
                     % ('%.3f' % q, '%.3f' % svc, '%.3f' % sjrn))
         f.close()
-        p95 = stats.scoreatpercentile(sjrnTimes, 95)
+
+        percentiles = [50, 75, 90, 95, 99, 99.5]
+        percentile_values = []
         maxLat = max(sjrnTimes)
-        print "95th percentile latency %.3f ms | max latency %.3f ms" \
-                % (p95, maxLat)
+        print("Max latency: %.3f ms" % (maxLat))
+        for percentile in percentiles:
+            percentile_value = stats.scoreatpercentile(sjrnTimes, percentile)
+            percentile_values.append(percentile_value)
+            print(str(percentile) + "th percentile latency %.3f ms" \
+                    % (percentile_value))
 
     latsFile = sys.argv[1]
     getLatPct(latsFile)
-        

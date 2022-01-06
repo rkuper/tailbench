@@ -1,5 +1,7 @@
+#!/bin/bash
 
-TAILBENCH_PATH=$HOME/benchmarks/tailbench
+# Path to the tailbench repo
+cd ..; TAILBENCH_PATH=`pwd`; cd -
 
 # Set this to point to the top level of the TailBench data directory
 DATA_ROOT=$TAILBENCH_PATH/data
