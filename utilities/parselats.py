@@ -70,22 +70,26 @@ if __name__ == '__main__':
 
         percentiles = [50, 75, 90, 95, 99, 99.5]
 
+        for percentile in percentiles:
+            percentile_value = stats.scoreatpercentile(qTimes, percentile)
+            print("[Queue] " + str(percentile) + "th percentile latency %.3f ms" \
+                    % (percentile_value))
+        print("[Queue] Mean overall latency %.3f ms" % (np.mean(qTimes)))
+        print("[Queue] Max overall latency %.3f ms\n" % (max(qTimes)))
 
-        print("Svc\n===")
         for percentile in percentiles:
             percentile_value = stats.scoreatpercentile(svcTimes, percentile)
-            print(str(percentile) + "th percentile latency %.3f ms" \
+            print("[Service] " + str(percentile) + "th percentile latency %.3f ms" \
                     % (percentile_value))
-        print("Mean latency: %.3f ms" % (np.mean(svcTimes)))
-        print("Max latency: %.3f ms\n" % (max(svcTimes)))
+        print("[Service] Mean overall latency %.3f ms" % (np.mean(svcTimes)))
+        print("[Service] Max overall latency %.3f ms\n" % (max(svcTimes)))
 
-        print("Sojourn\n=======")
         for percentile in percentiles:
             percentile_value = stats.scoreatpercentile(sjrnTimes, percentile)
-            print(str(percentile) + "th percentile latency %.3f ms" \
+            print("[Sojourn] " + str(percentile) + "th percentile latency %.3f ms" \
                     % (percentile_value))
-        print("Mean latency: %.3f ms" % (np.mean(sjrnTimes)))
-        print("Max latency: %.3f ms" % (max(sjrnTimes)))
+        print("[Sojourn] Mean overall latency %.3f ms" % (np.mean(sjrnTimes)))
+        print("[Sojourn] Max overall latency %.3f ms" % (max(sjrnTimes)))
 
         """
         draw_pdf(svcTimes, 1000)

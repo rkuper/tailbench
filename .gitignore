@@ -35,9 +35,12 @@
 *_networked_client
 *_networked_server
 
-# Results
-lats.bin
-lats.txt
+# Results and logs
+*lats.bin
+*lats.txt
+*.log
+lats/*
+results.txt
 
 # Data and Scratch
 data/*
@@ -56,6 +59,12 @@ masstree/config.log
 masstree/config.status
 masstree/configure
 masstree/stamp-h
+masstree/mtclient
+masstree/mtd
+masstree/mttest_client_networked
+masstree/mttest_integrated
+masstree/mttest_server_networked
+masstree/test_atomics
 
 # Shore
 shore/shore-mt/Makefile
@@ -101,11 +110,30 @@ shore/shore-mt/src/sthread/Makefile
 shore/shore-mt/src/sthread/tests/Makefile
 shore/shore-mt/tmpcfg.txt
 shore/shore-mt/tools/Makefile
+shore/shore-kits/.deps/
+shore/shore-kits/INSTALL
+shore/shore-kits/Makefile
+shore/shore-kits/Makefile.in
+shore/shore-kits/aclocal.m4
+shore/shore-kits/autom4te.cache/
+shore/shore-kits/config.guess
+shore/shore-kits/config.status
+shore/shore-kits/config.sub
+shore/shore-kits/configure
+shore/shore-kits/depcomp
+shore/shore-kits/install-sh
+shore/shore-kits/ltmain.sh
+shore/shore-kits/missing
+shore/shore-kits/tmpcfg.txt
 
 # Silo
 silo/masstree/config.log
 silo/masstree/GNUmakefile
 silo/masstree/config.status
+silo/out-perf.masstree/benchmarks/dbtest_client_networked
+silo/out-perf.masstree/benchmarks/dbtest_integrated
+silo/out-perf.masstree/benchmarks/dbtest_server_networked
+silo/out-perf.masstree/test
 
 # SPECJBB
 specjbb/build/
@@ -114,6 +142,8 @@ specjbb/build/
 pocketsphinx-5prealpha/
 sphinx-install/
 sphinxbase-5prealpha/
+sphinx/lats.bin
+sphinx/lats.txt
 
 # Moses
 moses/OnDiskPt/bin/
@@ -155,3 +185,4 @@ moses/util/bin/
 # Xapian
 xapian/genTerms
 xapian/xapian-core-1.2.13/
+xapian/build.sh
