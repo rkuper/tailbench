@@ -176,8 +176,8 @@ then
 
           # PCM metrics
           #############
-          MEM_CONFIG_SEARCH=$([ "$MEM_CONFIG" == "dram" ] && echo "DRAM" || ([ "$MEM_CONFIG" == "pmem" ] && echo "PMM" || echo "SYSTEM"))
-          THROUGHPUT_INDEX=$([ "$MEM_CONFIG_SEARCH" == "SYSTEM" ] && echo "5" || echo "6")
+          MEM_CONFIG_SEARCH=$([ "$MEM_CONFIG" == "dram" ] && echo "DRAM" || ([ "$MEM_CONFIG" == "pmem" ] && echo "PMM" || echo "System"))
+          THROUGHPUT_INDEX=$([ "$MEM_CONFIG_SEARCH" == "System" ] && echo "5" || echo "6")
           if [ -f "${BENCHMARK}_${MEM_CONFIG}_${BENCH_CONFIG}_1_pcm.txt" ];
           then
             if [ "$CONTEXT" == "true" ]
