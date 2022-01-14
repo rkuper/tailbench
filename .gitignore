@@ -38,8 +38,9 @@
 # Results and logs
 *lats.bin
 *lats.txt
+*pcm.txt
 *.log
-lats/*
+results/*
 results.txt
 
 # Data and Scratch
