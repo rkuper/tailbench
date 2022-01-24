@@ -21,8 +21,8 @@
     <copy file="${xml}/jbb-document.dtd" tofile="${dist}/xml/jbb-document.dtd"/>
     <copy file="SPECjbb.props" tofile="${dist}/SPECjbb.props"/>
     <copy file="SPECjbb_config.props" tofile="${dist}/SPECjbb_config.props"/>
-    <copy file="run.sh" tofile="${dist}/run.sh"/>
-    <copy file="run_multi.sh" tofile="${dist}/run_multi.sh"/> 
+    <copy file="run_integrated.sh" tofile="${dist}/run_integrated.sh"/>
+    <copy file="run_multi.sh" tofile="${dist}/run_multi.sh"/>
     <copy file="run_multi_cygwin.sh" tofile="${dist}/run_multi_cygwin.sh"/>
     <copy file="run.bat" tofile="${dist}/run.bat"/>
     <copy file="runit.bat" tofile="${dist}/runit.bat"/>
@@ -31,7 +31,7 @@
   <target name="compile" depends="init"
         description="compile the source " >
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac 
+    <javac
     source="1.5"
     target="1.5"
     srcdir="${src}" destdir="${tmp}"/>
