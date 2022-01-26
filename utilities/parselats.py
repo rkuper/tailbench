@@ -68,7 +68,7 @@ if __name__ == '__main__':
                     % ('%.3f' % q, '%.3f' % svc, '%.3f' % sjrn))
         f.close()
 
-        percentiles = [50, 75, 90, 95, 99, 99.5]
+        percentiles = [50, 75, 90, 95, 99, 99.9, 99.99]
 
         for percentile in percentiles:
             percentile_value = stats.scoreatpercentile(qTimes, percentile)

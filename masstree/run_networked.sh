@@ -3,7 +3,7 @@
 if [[ -z "${NTHREADS}" ]]; then NTHREADS=1; fi
 
 QPS=1000
-MAXREQS=3000
+MAXREQS=100000
 WARMUPREQS=14000
 
 TBENCH_MAXREQS=${MAXREQS} TBENCH_WARMUPREQS=${WARMUPREQS} chrt -r 99 \
@@ -19,4 +19,4 @@ wait $(cat client.pid)
 
 # Clean up
 ./kill_networked.sh
-    
+
